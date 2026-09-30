@@ -116,6 +116,13 @@ jobs:
           exit-code: "1"
           ignore-unfixed: true
 
+      - name: Install roxctl
+        run: |
+          curl -L -o roxctl https://mirror.openshift.com/pub/rhacs/assets/4.6.0/bin/Linux/roxctl
+          chmod +x roxctl
+          sudo mv roxctl /usr/local/bin/roxctl
+          roxctl version
+
       - name: Save image
         if: github.ref == 'refs/heads/main'
         run: docker save $IMAGE_NAME:${{ github.sha }} -o go-cicd-demo.tar
